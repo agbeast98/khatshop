@@ -23,6 +23,12 @@ use App\Http\Controllers\Admin\OrderController;
 Route::prefix('admin')->group(function () {
     Route::resource('orders', OrderController::class);
 });
+use App\Http\Controllers\Admin\SettingController;
+
+Route::prefix('admin')->group(function () {
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
+});
 
 
 // گروه‌بندی مسیرهای مدیریت با پیشوند 'admin'
