@@ -1,27 +1,26 @@
-/* تنظیمات کلی */
 body {
-    margin: 0;
-    font-family: 'Tahoma', sans-serif;
-    direction: rtl; /* راست‌چین کردن کل سایت */
     display: flex;
     min-height: 100vh;
+    margin: 0;
+    direction: rtl; /* راست‌چین */
+    font-family: 'Tahoma', sans-serif;
 }
 
-/* استایل سایدبار */
 .sidebar {
     width: 250px;
     background-color: #343a40;
     color: #fff;
     padding: 20px;
-    flex-shrink: 0; /* جلوگیری از کوچک شدن در حالت رسپانسیو */
-    transition: transform 0.3s ease; /* انیمیشن باز و بسته شدن */
+    flex-shrink: 0;
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed; /* ثابت در کنار صفحه */
 }
 
 .sidebar h3 {
     color: #ffc107;
     text-align: center;
     margin-bottom: 20px;
-    font-size: 1.2rem;
 }
 
 .sidebar ul {
@@ -48,26 +47,22 @@ body {
     color: #343a40;
 }
 
-/* محتوای اصلی */
 .content {
-    flex: 1; /* محتوای اصلی تمام فضای باقی‌مانده را می‌گیرد */
+    margin-right: 250px; /* هماهنگ با عرض سایدبار */
     padding: 20px;
     background-color: #f8f9fa;
-    text-align: right;
+    flex: 1;
+    text-align: right; /* راست‌چین متن */
 }
-
-/* تنظیمات رسپانسیو */
 @media (max-width: 768px) {
     .sidebar {
+        transform: translateX(-250px);
         position: fixed;
-        top: 0;
-        right: -250px; /* سایدبار مخفی شود */
-        height: 100%;
-        transform: translateX(0);
+        transition: transform 0.3s ease;
     }
 
     .sidebar.active {
-        transform: translateX(-250px); /* سایدبار باز شود */
+        transform: translateX(0);
     }
 
     .toggle-btn {
@@ -82,5 +77,9 @@ body {
         padding: 10px 15px;
         border-radius: 5px;
         cursor: pointer;
+    }
+
+    .content {
+        margin-right: 0;
     }
 }

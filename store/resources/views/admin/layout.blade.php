@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="{{ asset('css/admin/sidebar.css') }}">
 </head>
 <body>
-    <!-- دکمه باز و بسته کردن سایدبار -->
+    <!-- دکمه نمایش سایدبار -->
     <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
-    <!-- شامل کردن سایدبار -->
+    <!-- سایدبار -->
     @include('admin.sidebar')
 
     <!-- محتوای اصلی -->
@@ -25,4 +25,5 @@
         }
     </script>
 </body>
+
 </html>
