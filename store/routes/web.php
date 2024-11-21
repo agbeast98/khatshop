@@ -7,6 +7,12 @@ use App\Http\Controllers\ProductController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('admin/categories', 'Admin\CategoryController');
+
+use App\Http\Controllers\Admin\CategoryController;
+
+Route::resource('admin/categories', CategoryController::class);
+
 
 // گروه‌بندی مسیرهای مدیریت با پیشوند 'admin'
 Route::prefix('admin')->group(function () {

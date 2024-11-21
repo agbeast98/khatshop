@@ -2,20 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    public function up()
+    use HasFactory;
+
+    protected $fillable = ['name', 'description', 'price', 'stock', 'category_id'];
+
+    // رابطه با دسته‌بندی
+    public function category()
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->decimal('price', 8, 2);
-            $table->integer('stock');
-            $table->timestamps();
-        });
+        return $this->belongsTo(Category::class);
     }
-    
 }
