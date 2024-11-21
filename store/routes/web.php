@@ -13,6 +13,12 @@ use App\Http\Controllers\Admin\CategoryController;
 
 Route::resource('admin/categories', CategoryController::class);
 
+use App\Http\Controllers\Admin\UserController;
+
+Route::prefix('admin')->group(function () {
+    Route::resource('users', UserController::class);
+});
+
 
 // گروه‌بندی مسیرهای مدیریت با پیشوند 'admin'
 Route::prefix('admin')->group(function () {
