@@ -3,70 +3,64 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // نمایش لیست محصولات
     public function index()
     {
         $products = Product::all();
         return view('admin.products.index', compact('products'));
     }
 
-    // نمایش فرم ایجاد محصول جدید
     public function create()
     {
-        return view('admin.products.create');
+        $categories = Category::all();
+        return view('admin.products.create', compact('categories'));
     }
 
-    // ذخیره محصول جدید
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
-            'description' => 'required',
             'price' => 'required|numeric',
-            'stock' => 'required|integer',
+            'categories' => 'nullable|array',
+            'discount_price' => 'nullable|numeric',
+            'discount_expiry' => 'nullable|date',
         ]);
 
-        Product::create($request->all());
+        $data = $request->all();
+        $data['categories'] = $request->categories ? json_encode($request->categories) : null;
+        $data['tags'] = $request->tags ? json_encode(explode(',', $request->tags)) : null;
+
+        Product::create($data);
 
         return redirect()->route('products.index')->with('success', 'محصول با موفقیت اضافه شد.');
     }
 
-    // نمایش جزئیات محصول
-    public function show(Product $product)
-    {
-        return view('admin.products.show', compact('product'));
-    }
-
-    // نمایش فرم ویرایش محصول
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product'));
+        $categories = Category::all();
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
-    // به‌روزرسانی محصول
     public function update(Request $request, Product $product)
     {
         $request->validate([
             'name' => 'required',
-            'description' => 'required',
             'price' => 'required|numeric',
-            'stock' => 'required|integer',
+            'categories' => 'nullable|array',
+            'discount_price' => 'nullable|numeric',
+            'discount_expiry' => 'nullable|date',
         ]);
 
-        $product->update($request->all());
+        $data = $request->all();
+        $data['categories'] = $request->categories ? json_encode($request->categories) : null;
+        $data['tags'] = $request->tags ? json_encode(explode(',', $request->tags)) : null;
 
-        return redirect()->route('products.index')->with('success', 'محصول با موفقیت ویرایش شد.');
-    }
+        $product->update($data);
 
-    // حذف محصول
-    public function destroy(Product $product)
-    {
-        $product->delete();
-
-        return redirect()->route('products.index')->with('success', 'محصول با موفقیت حذف شد.');
+        return redirect()->route('products.index')->with('success', 'محصول با موفقیت به‌روزرسانی شد.');
     }
 }

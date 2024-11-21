@@ -9,9 +9,29 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'price', 'stock', 'category_id'];
+    protected $fillable = [
+        'name',
+        'english_name',
+        'categories',
+        'brand',
+        'weight',
+        'height',
+        'width',
+        'length',
+        'tags',
+        'description',
+        'short_description',
+        'price',
+        'discount_price',
+        'discount_expiry',
+    ];
 
-    // رابطه با دسته‌بندی
+    protected $casts = [
+        'categories' => 'array',
+        'tags' => 'array',
+        'discount_expiry' => 'date',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
