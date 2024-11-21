@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// مدیریت محصولات با Resource Controller
+// گروه‌بندی مسیرهای مدیریت با پیشوند 'admin'
 Route::prefix('admin')->group(function () {
     Route::resource('products', ProductController::class);
 });

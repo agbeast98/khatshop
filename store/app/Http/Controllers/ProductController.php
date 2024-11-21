@@ -7,20 +7,20 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    // لیست محصولات
+    // نمایش لیست محصولات
     public function index()
     {
         $products = Product::all();
-        return view('admin.products.index', compact('products')); // تغییر مسیر ویو
+        return view('admin.products.index', compact('products'));
     }
 
-    // نمایش فرم افزودن محصول
+    // نمایش فرم ایجاد محصول جدید
     public function create()
     {
-        return view('admin.products.create'); // تغییر مسیر ویو
+        return view('admin.products.create');
     }
 
-    // افزودن محصول به پایگاه داده
+    // ذخیره محصول جدید
     public function store(Request $request)
     {
         $request->validate([
@@ -35,19 +35,19 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'محصول با موفقیت اضافه شد.');
     }
 
-    // نمایش محصول خاص
+    // نمایش جزئیات محصول
     public function show(Product $product)
     {
-        return view('admin.products.show', compact('product')); // تغییر مسیر ویو
+        return view('admin.products.show', compact('product'));
     }
 
     // نمایش فرم ویرایش محصول
     public function edit(Product $product)
     {
-        return view('admin.products.edit', compact('product')); // تغییر مسیر ویو
+        return view('admin.products.edit', compact('product'));
     }
 
-    // به‌روزرسانی اطلاعات محصول
+    // به‌روزرسانی محصول
     public function update(Request $request, Product $product)
     {
         $request->validate([
@@ -70,4 +70,3 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'محصول با موفقیت حذف شد.');
     }
 }
-
