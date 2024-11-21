@@ -1,0 +1,55 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+    direction: rtl; /* راست‌چین کردن کل سایت */
+    font-family: 'Tahoma', sans-serif;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: #fff;
+    padding: 15px;
+}
+
+.sidebar h3 {
+    color: #ffc107;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #ffc107;
+    color: #343a40;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f8f9fa;
+    text-align: right; /* راست‌چین کردن متن در محتوای اصلی */
+}
+
+.table th,
+.table td {
+    text-align: right; /* راست‌چین کردن متن جداول */
+}
