@@ -30,6 +30,12 @@ Route::prefix('admin')->group(function () {
     Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
 });
 
+use App\Http\Controllers\Admin\DashboardController;
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    // سایر روت‌ها مانند کاربران، سفارش‌ها و تنظیمات
+});
 
 // گروه‌بندی مسیرهای مدیریت با پیشوند 'admin'
 Route::prefix('admin')->group(function () {
