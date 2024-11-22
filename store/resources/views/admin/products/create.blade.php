@@ -13,14 +13,6 @@
             <input type="text" name="english_name" class="form-control">
         </div>
         <div class="form-group">
-            <label for="categories">دسته‌بندی‌ها</label>
-            <select name="categories[]" class="form-control" multiple>
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="form-group">
             <label for="brand">برند</label>
             <input type="text" name="brand" class="form-control">
         </div>
@@ -41,12 +33,20 @@
             <input type="text" name="tags" class="form-control">
         </div>
         <div class="form-group">
-            <label for="short_description">توضیحات کوتاه</label>
-            <textarea name="short_description" class="form-control"></textarea>
+            <label for="categories">دسته‌بندی‌ها</label>
+            <select name="categories[]" class="form-control" multiple>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="description">توضیحات</label>
             <textarea name="description" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="short_description">توضیحات کوتاه</label>
+            <textarea name="short_description" class="form-control"></textarea>
         </div>
         <div class="form-group">
             <label for="price">قیمت</label>
@@ -59,6 +59,10 @@
         <div class="form-group">
             <label for="discount_expiry">تاریخ انقضای تخفیف</label>
             <input type="date" name="discount_expiry" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="stock">موجودی انبار</label>
+            <input type="number" name="stock" class="form-control" value="0" min="0">
         </div>
         <button type="submit" class="btn btn-primary">ذخیره</button>
     </form>

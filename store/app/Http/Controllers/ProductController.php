@@ -25,14 +25,16 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
-            'categories' => 'nullable|array',
-            'discount_price' => 'nullable|numeric',
-            'discount_expiry' => 'nullable|date',
         ]);
 
         $data = $request->all();
-        $data['categories'] = $request->categories ? json_encode($request->categories) : null;
+
+        // مقداردهی پیش‌فرض برای فیلدهای اختیاری
+        $data['description'] = $request->description ?? '';
+        $data['short_description'] = $request->short_description ?? '';
         $data['tags'] = $request->tags ? json_encode(explode(',', $request->tags)) : null;
+        $data['categories'] = $request->categories ? json_encode($request->categories) : null;
+        $data['stock'] = $request->stock ?? 0;
 
         Product::create($data);
 
@@ -50,17 +52,25 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'price' => 'required|numeric',
-            'categories' => 'nullable|array',
-            'discount_price' => 'nullable|numeric',
-            'discount_expiry' => 'nullable|date',
         ]);
 
         $data = $request->all();
-        $data['categories'] = $request->categories ? json_encode($request->categories) : null;
+
+        // مقداردهی پیش‌فرض برای فیلدهای اختیاری
+        $data['description'] = $request->description ?? '';
+        $data['short_description'] = $request->short_description ?? '';
         $data['tags'] = $request->tags ? json_encode(explode(',', $request->tags)) : null;
+        $data['categories'] = $request->categories ? json_encode($request->categories) : null;
+        $data['stock'] = $request->stock ?? 0;
 
         $product->update($data);
 
         return redirect()->route('products.index')->with('success', 'محصول با موفقیت به‌روزرسانی شد.');
+    }
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+        return redirect()->route('products.index')->with('success', 'محصول با موفقیت حذف شد.');
     }
 }

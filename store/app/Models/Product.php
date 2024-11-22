@@ -12,18 +12,19 @@ class Product extends Model
     protected $fillable = [
         'name',
         'english_name',
-        'categories',
         'brand',
         'weight',
         'height',
         'width',
         'length',
         'tags',
-        'description',
         'short_description',
+        'description',
         'price',
         'discount_price',
         'discount_expiry',
+        'categories',
+        'stock',
     ];
 
     protected $casts = [
@@ -31,9 +32,4 @@ class Product extends Model
         'tags' => 'array',
         'discount_expiry' => 'date',
     ];
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
 }

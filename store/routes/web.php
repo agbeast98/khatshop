@@ -37,6 +37,8 @@ Route::prefix('admin')->group(function () {
     // سایر روت‌ها مانند کاربران، سفارش‌ها و تنظیمات
 });
 
+
+
 // گروه‌بندی مسیرهای مدیریت با پیشوند 'admin'
 Route::prefix('admin')->group(function () {
     Route::resource('products', ProductController::class);

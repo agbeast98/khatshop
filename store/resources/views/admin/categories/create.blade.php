@@ -1,29 +1,48 @@
 @extends('admin.layout')
 
 @section('content')
-    <h1>ایجاد دسته‌بندی جدید</h1>
-    <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+    <h1>ایجاد محصول جدید</h1>
+    <form action="{{ route('products.store') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="name">نام دسته‌بندی</label>
-            <input type="text" name="name" class="form-control">
+            <label for="name">نام محصول</label>
+            <input type="text" name="name" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="slug">اسلاگ</label>
-            <input type="text" name="slug" class="form-control">
+            <label for="price">قیمت</label>
+            <input type="number" name="price" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="image">تصویر</label>
-            <input type="file" name="image" class="form-control">
+            <label for="stock">موجودی انبار</label>
+            <input type="number" name="stock" class="form-control" value="0" min="0">
         </div>
         <div class="form-group">
-            <label for="parent_id">دسته‌بندی والد</label>
-            <select name="parent_id" class="form-control">
-                <option value="">بدون والد</option>
+            <label for="tags">برچسب‌ها (با کاما جدا کنید)</label>
+            <input type="text" name="tags" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="categories">دسته‌بندی‌ها</label>
+            <select name="categories[]" class="form-control" multiple>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="form-group">
+            <label for="description">توضیحات</label>
+            <textarea name="description" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="short_description">توضیحات کوتاه</label>
+            <textarea name="short_description" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="discount_price">قیمت تخفیف خورده</label>
+            <input type="number" name="discount_price" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="discount_expiry">تاریخ انقضای تخفیف</label>
+            <input type="date" name="discount_expiry" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary">ذخیره</button>
     </form>
