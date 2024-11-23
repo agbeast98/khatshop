@@ -48,7 +48,7 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return redirect()->route('products.index')->with('success', 'محصول با موفقیت اضافه شد.');
+        return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت اضافه شد.');
     }
 
     public function edit(Product $product)
@@ -84,13 +84,13 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return redirect()->route('products.index')->with('success', 'محصول با موفقیت به‌روزرسانی شد.');
+        return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت به‌روزرسانی شد.');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('products.index')->with('success', 'محصول با موفقیت حذف شد.');
+        return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت حذف شد.');
     }
 
     public function show(Product $product)
