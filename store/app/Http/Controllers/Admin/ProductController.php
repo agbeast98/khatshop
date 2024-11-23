@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\Category; // مدل دسته‌بندی
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
