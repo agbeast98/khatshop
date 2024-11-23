@@ -28,9 +28,13 @@ Route::prefix('admin')->group(function () {
 use App\Http\Controllers\Admin\SettingController;
 
 Route::prefix('admin')->group(function () {
+    // مسیر نمایش فرم تنظیمات
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
+
+    // مسیر ذخیره تنظیمات
+    Route::post('settings', [SettingController::class, 'store'])->name('settings.store');
 });
+
 
 use App\Http\Controllers\Admin\DashboardController;
 
