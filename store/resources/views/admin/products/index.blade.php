@@ -2,6 +2,9 @@
 
 @section('content')
     <h1>لیست محصولات</h1>
+    <div>
+        <a href="{{ route('products.create') }}" class="button">ایجاد محصول جدید</a>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -16,12 +19,12 @@
                     <td>{{ $product->name }}</td>
                     <td>{{ number_format($product->price, 2) }} تومان</td>
                     <td>
-                        <a href="{{ route('products.show', $product) }}" class="btn btn-info">نمایش</a>
-                        <a href="{{ route('products.edit', $product) }}" class="btn btn-warning">ویرایش</a>
+                        <a href="{{ route('products.show', $product) }}" class="button">نمایش</a>
+                        <a href="{{ route('products.edit', $product) }}" class="button">ویرایش</a>
                         <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">حذف</button>
+                            <button type="submit" class="button button-danger">حذف</button>
                         </form>
                     </td>
                 </tr>

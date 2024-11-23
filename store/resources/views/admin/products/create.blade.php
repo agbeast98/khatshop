@@ -6,43 +6,43 @@
         @csrf
         <div class="form-group">
             <label for="name">نام محصول</label>
-            <input type="text" name="name" class="form-control" required>
+            <input type="text" name="name" class="field" placeholder="نام محصول را وارد کنید" required>
         </div>
         <div class="form-group">
             <label for="english_name">نام انگلیسی محصول</label>
-            <input type="text" name="english_name" class="form-control">
+            <input type="text" name="english_name" class="field" placeholder="نام انگلیسی محصول را وارد کنید">
         </div>
         <div class="form-group">
             <label for="brand">برند</label>
-            <input type="text" name="brand" class="form-control">
+            <input type="text" name="brand" class="field" placeholder="برند محصول را وارد کنید">
         </div>
         <div class="form-group">
             <label for="weight">وزن (گرم)</label>
-            <input type="number" name="weight" class="form-control">
+            <input type="number" name="weight" class="field" placeholder="وزن محصول">
         </div>
         <div class="form-group">
             <label for="dimensions">ابعاد (ارتفاع، عرض، طول)</label>
             <div class="d-flex">
-                <input type="number" name="height" class="form-control mr-2" placeholder="ارتفاع">
-                <input type="number" name="width" class="form-control mr-2" placeholder="عرض">
-                <input type="number" name="length" class="form-control" placeholder="طول">
+                <input type="number" name="height" class="field mr-2" placeholder="ارتفاع">
+                <input type="number" name="width" class="field mr-2" placeholder="عرض">
+                <input type="number" name="length" class="field" placeholder="طول">
             </div>
         </div>
         <div class="form-group">
             <label for="price">قیمت</label>
-            <input type="number" name="price" class="form-control" required>
+            <input type="number" name="price" class="field" placeholder="قیمت محصول" required>
         </div>
         <div class="form-group">
             <label for="discount_price">قیمت تخفیف خورده</label>
-            <input type="number" name="discount_price" class="form-control">
+            <input type="number" name="discount_price" class="field" placeholder="قیمت تخفیف خورده">
         </div>
         <div class="form-group">
             <label for="discount_expiry">تاریخ انقضای تخفیف</label>
-            <input type="date" name="discount_expiry" class="form-control">
+            <input type="date" name="discount_expiry" class="field">
         </div>
         <div class="form-group">
             <label for="categories">دسته‌بندی‌ها</label>
-            <select name="categories[]" class="form-control" multiple>
+            <select name="categories[]" class="field" multiple>
                 @foreach($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
@@ -50,20 +50,20 @@
         </div>
         <div class="form-group">
             <label for="tags">برچسب‌ها (با کاما جدا کنید)</label>
-            <input type="text" name="tags" class="form-control">
+            <input type="text" name="tags" class="field" placeholder="برچسب‌ها را وارد کنید">
         </div>
         <div class="form-group">
             <label for="description">توضیحات</label>
-            <textarea name="description" class="form-control"></textarea>
+            <textarea name="description" class="field" placeholder="توضیحات محصول"></textarea>
         </div>
         <div class="form-group">
             <label for="short_description">توضیحات کوتاه</label>
-            <textarea name="short_description" class="form-control"></textarea>
+            <textarea name="short_description" class="field" placeholder="توضیحات کوتاه"></textarea>
         </div>
         <div class="form-group">
             <label for="stock">موجودی انبار</label>
-            <input type="number" name="stock" class="form-control" value="0" min="0">
+            <input type="number" name="stock" class="field" placeholder="تعداد موجودی" value="0" min="0">
         </div>
-        <button type="submit" class="btn btn-primary">ذخیره محصول</button>
+        <button type="submit" class="button">ذخیره محصول</button>
     </form>
 @endsection
