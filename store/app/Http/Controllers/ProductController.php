@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Category;
+use App\Models\Category; // مدل دسته‌بندی
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,18 +23,27 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
+            'english_name' => 'nullable|string|max:255',
+            'brand' => 'nullable|string|max:255',
+            'weight' => 'nullable|numeric',
+            'height' => 'nullable|numeric',
+            'width' => 'nullable|numeric',
+            'length' => 'nullable|numeric',
+            'tags' => 'nullable|string',
+            'short_description' => 'nullable|string',
+            'description' => 'nullable|string',
             'price' => 'required|numeric',
+            'discount_price' => 'nullable|numeric',
+            'discount_expiry' => 'nullable|date',
+            'categories' => 'nullable|array',
+            'categories.*' => 'exists:categories,id',
+            'stock' => 'nullable|integer|min:0',
         ]);
 
         $data = $request->all();
-
-        // مقداردهی پیش‌فرض برای فیلدهای اختیاری
-        $data['description'] = $request->description ?? '';
-        $data['short_description'] = $request->short_description ?? '';
         $data['tags'] = $request->tags ? json_encode(explode(',', $request->tags)) : null;
         $data['categories'] = $request->categories ? json_encode($request->categories) : null;
-        $data['stock'] = $request->stock ?? 0;
 
         Product::create($data);
 
@@ -50,18 +59,27 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
+            'english_name' => 'nullable|string|max:255',
+            'brand' => 'nullable|string|max:255',
+            'weight' => 'nullable|numeric',
+            'height' => 'nullable|numeric',
+            'width' => 'nullable|numeric',
+            'length' => 'nullable|numeric',
+            'tags' => 'nullable|string',
+            'short_description' => 'nullable|string',
+            'description' => 'nullable|string',
             'price' => 'required|numeric',
+            'discount_price' => 'nullable|numeric',
+            'discount_expiry' => 'nullable|date',
+            'categories' => 'nullable|array',
+            'categories.*' => 'exists:categories,id',
+            'stock' => 'nullable|integer|min:0',
         ]);
 
         $data = $request->all();
-
-        // مقداردهی پیش‌فرض برای فیلدهای اختیاری
-        $data['description'] = $request->description ?? '';
-        $data['short_description'] = $request->short_description ?? '';
         $data['tags'] = $request->tags ? json_encode(explode(',', $request->tags)) : null;
         $data['categories'] = $request->categories ? json_encode($request->categories) : null;
-        $data['stock'] = $request->stock ?? 0;
 
         $product->update($data);
 
@@ -72,5 +90,10 @@ class ProductController extends Controller
     {
         $product->delete();
         return redirect()->route('products.index')->with('success', 'محصول با موفقیت حذف شد.');
+    }
+
+    public function show(Product $product)
+    {
+        return view('admin.products.show', compact('product'));
     }
 }

@@ -2,18 +2,11 @@
 
 @section('content')
     <h1>لیست محصولات</h1>
-    <a href="{{ route('products.create') }}">افزودن محصول جدید</a>
-
-    @if(session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
-
-    <table>
+    <table class="table">
         <thead>
             <tr>
-                <th>نام</th>
+                <th>نام محصول</th>
                 <th>قیمت</th>
-                <th>موجودی</th>
                 <th>عملیات</th>
             </tr>
         </thead>
@@ -21,15 +14,14 @@
             @foreach($products as $product)
                 <tr>
                     <td>{{ $product->name }}</td>
-                    <td>{{ $product->price }}</td>
-                    <td>{{ $product->stock }}</td>
+                    <td>{{ number_format($product->price, 2) }} تومان</td>
                     <td>
-                        <a href="{{ route('products.show', $product) }}">نمایش</a>
-                        <a href="{{ route('products.edit', $product) }}">ویرایش</a>
-                        <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('products.show', $product) }}" class="btn btn-info">نمایش</a>
+                        <a href="{{ route('products.edit', $product) }}" class="btn btn-warning">ویرایش</a>
+                        <form action="{{ route('products.destroy', $product) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">حذف</button>
+                            <button type="submit" class="btn btn-danger">حذف</button>
                         </form>
                     </td>
                 </tr>
