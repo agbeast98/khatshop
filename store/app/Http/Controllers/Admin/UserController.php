@@ -23,13 +23,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'nullable|digits:10',
+            'phone' => 'nullable|string|max:15',
             'role' => 'required|in:customer,admin,employee',
             'password' => 'required|min:8',
-            'avatar' => 'nullable|image',
+            'avatar' => 'nullable|image|max:1024',
         ]);
 
         $data = $request->all();
@@ -41,6 +41,6 @@ class UserController extends Controller
 
         User::create($data);
 
-        return redirect()->route('users.index')->with('success', 'کاربر با موفقیت اضافه شد.');
+        return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ایجاد شد.');
     }
 }

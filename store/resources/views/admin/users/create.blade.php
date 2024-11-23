@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('content')
-    <h1>افزودن کاربر جدید</h1>
+    <h1>ایجاد کاربر جدید</h1>
     <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
