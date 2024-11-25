@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin/buttons.css') }}">
 
 
+
 </head>
 <body>
     <!-- دکمه نمایش سایدبار -->
@@ -32,6 +33,7 @@
             sidebar.classList.toggle('active');
         }
     </script>
+
 </body>
 
 </html>

@@ -68,3 +68,29 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
+
+
+use App\Http\Controllers\Admin\ReportController;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('reports/financial', [ReportController::class, 'financial'])->name('reports.financial');
+    Route::get('reports/top-selling', [ReportController::class, 'topSelling'])->name('reports.top_selling');
+    Route::get('reports/new-users', [ReportController::class, 'newUsers'])->name('reports.new_users');
+});
+use App\Http\Controllers\Admin\WarehouseController;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('warehouses', WarehouseController::class);
+});
+use App\Http\Controllers\Admin\PageController;
+
+// مسیرهای مدیریت برگه‌ها
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('pages', PageController::class);
+});
+
+// نمایش برگه‌های عمومی
+Route::get('/{slug}', function ($slug) {
+    $page = App\Models\Page::where('slug', $slug)->where('status', 1)->firstOrFail();
+    return view('pages.show', compact('page'));
+})->name('pages.show');

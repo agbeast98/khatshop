@@ -1,0 +1,53 @@
+.report {
+    padding: 20px;
+}
+
+.report h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.stat-box {
+    background: #28a745;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 48%;
+}
+
+.stat-box h2 {
+    font-size: 36px;
+    margin: 0;
+}
+
+.stat-box p {
+    font-size: 16px;
+    margin: 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background: #f4f4f4;
+}
+
+table tr:nth-child(even) {
+    background: #f9f9f9;
+}
