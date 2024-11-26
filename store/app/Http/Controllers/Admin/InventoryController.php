@@ -58,6 +58,8 @@ class InventoryController extends Controller
 
     public function destroy(Inventory $inventory)
     {
-        $inventory
-::contentReference[oaicite:0]{index=0}
- 
+        $inventory->delete();
+
+        return redirect()->route('admin.inventories.index')->with('success', 'موجودی با موفقیت حذف شد.');
+    }
+}

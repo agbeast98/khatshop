@@ -43,6 +43,7 @@ Route::prefix('admin')->group(function () {
 // مسیرهای محصولات مدیریت
 Route::prefix('admin')->group(function () {
     Route::resource('products', AdminProductController::class);
+    Route::get('products/{product}', [dminProductController::class, 'show'])->name('product.show');
 });
 
 
@@ -103,3 +104,8 @@ use App\Http\Controllers\Auth\LoginController;
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+use App\Http\Controllers\Admin\InventoryController;
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('inventories', InventoryController::class);
+});
