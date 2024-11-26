@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سایت فروشگاهی</title>
     <link rel="stylesheet" href="{{ asset('css/user/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/user/header.css') }}">
+
 </head>
 <body>
     <header class="header">

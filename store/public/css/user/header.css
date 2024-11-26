@@ -1,0 +1,101 @@
+/* استایل‌های هدر */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    direction: rtl; /* راستچین کردن کل هدر */
+}
+
+.header__logo img {
+    width: 150px;
+    height: auto;
+}
+
+.header__nav {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header__menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.header__menu li {
+    margin: 0 15px;
+}
+
+.header__menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.header__menu a:hover {
+    color: #d14e37; /* رنگ هور در منو */
+}
+
+/* استایل برای دکمه‌های ورود و ثبت‌نام */
+.header__auth {
+    display: flex;
+    align-items: center;
+}
+
+.auth__button {
+    text-decoration: none;
+    background-color: #d14e37;
+    color: #fff;
+    padding: 8px 20px;
+    margin-left: 10px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.auth__button:hover {
+    background-color: #bf3e29;
+}
+
+/* موبایل و تبلت */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header__logo {
+        margin-bottom: 10px;
+    }
+
+    .header__nav {
+        text-align: right;
+        margin-bottom: 10px;
+    }
+
+    .header__menu {
+        flex-direction: column;
+    }
+
+    .header__menu li {
+        margin: 5px 0;
+    }
+
+    .header__auth {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .auth__button {
+        margin-left: 0;
+        margin-right: 10px;
+    }
+}
