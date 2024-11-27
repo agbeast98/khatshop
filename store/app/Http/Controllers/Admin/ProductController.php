@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -27,6 +28,9 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'english_name' => 'nullable|string|max:255',
             'brand' => 'nullable|string|max:255',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gallery' => 'nullable|array',
+            'gallery.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'weight' => 'nullable|numeric',
             'height' => 'nullable|numeric',
             'width' => 'nullable|numeric',
@@ -42,9 +46,26 @@ class ProductController extends Controller
             'stock' => 'nullable|integer|min:0',
         ]);
 
-        $data = $request->all();
+        $data = $request->except(['main_image', 'gallery']);
         $data['tags'] = $request->tags ? json_encode(explode(',', $request->tags)) : null;
         $data['categories'] = $request->categories ? json_encode($request->categories) : null;
+
+        // مدیریت آپلود تصویر اصلی
+        if ($request->hasFile('main_image')) {
+            $mainImage = $request->file('main_image');
+            $mainImagePath = $mainImage->store('public/image/products');
+            $data['main_image'] = str_replace('public/', '', $mainImagePath);
+        }
+
+        // مدیریت آپلود گالری تصاویر
+        if ($request->hasFile('gallery')) {
+            $galleryImages = [];
+            foreach ($request->file('gallery') as $galleryImage) {
+                $path = $galleryImage->store('public/image/products');
+                $galleryImages[] = str_replace('public/', '', $path);
+            }
+            $data['gallery'] = json_encode($galleryImages);
+        }
 
         Product::create($data);
 
@@ -63,6 +84,9 @@ class ProductController extends Controller
             'name' => 'required|string|max:255',
             'english_name' => 'nullable|string|max:255',
             'brand' => 'nullable|string|max:255',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gallery' => 'nullable|array',
+            'gallery.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'weight' => 'nullable|numeric',
             'height' => 'nullable|numeric',
             'width' => 'nullable|numeric',
@@ -78,9 +102,33 @@ class ProductController extends Controller
             'stock' => 'nullable|integer|min:0',
         ]);
 
-        $data = $request->all();
+        $data = $request->except(['main_image', 'gallery']);
         $data['tags'] = $request->tags ? json_encode(explode(',', $request->tags)) : null;
         $data['categories'] = $request->categories ? json_encode($request->categories) : null;
+
+        // مدیریت آپلود تصویر اصلی
+        if ($request->hasFile('main_image')) {
+            if ($product->main_image) {
+                Storage::delete('public/' . $product->main_image);
+            }
+            $mainImagePath = $request->file('main_image')->store('public/image/products');
+            $data['main_image'] = str_replace('public/', '', $mainImagePath);
+        }
+
+        // مدیریت آپلود گالری تصاویر
+        if ($request->hasFile('gallery')) {
+            if ($product->gallery) {
+                foreach (json_decode($product->gallery) as $galleryImage) {
+                    Storage::delete('public/' . $galleryImage);
+                }
+            }
+            $galleryImages = [];
+            foreach ($request->file('gallery') as $galleryImage) {
+                $path = $galleryImage->store('public/image/products');
+                $galleryImages[] = str_replace('public/', '', $path);
+            }
+            $data['gallery'] = json_encode($galleryImages);
+        }
 
         $product->update($data);
 
@@ -89,7 +137,16 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        if ($product->main_image) {
+            Storage::delete('public/' . $product->main_image);
+        }
+        if ($product->gallery) {
+            foreach (json_decode($product->gallery) as $galleryImage) {
+                Storage::delete('public/' . $galleryImage);
+            }
+        }
         $product->delete();
+
         return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت حذف شد.');
     }
 
@@ -97,5 +154,4 @@ class ProductController extends Controller
     {
         return view('admin.products.show', compact('product'));
     }
-    
 }

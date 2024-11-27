@@ -1,69 +1,133 @@
-@extends('admin.layout')
+@extends('layouts.admin')
+
+@section('title', 'افزودن محصول جدید')
 
 @section('content')
-    <h1>ایجاد محصول جدید</h1>
-    <form action="{{ route('products.store') }}" method="POST">
+<div class="container mt-4">
+    <h1>افزودن محصول جدید</h1>
+
+    <!-- نمایش خطاها -->
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <!-- فرم ایجاد محصول -->
+    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+
+        <!-- نام محصول -->
         <div class="form-group">
             <label for="name">نام محصول</label>
-            <input type="text" name="name" class="field" placeholder="نام محصول را وارد کنید" required>
+            <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
         </div>
+
+        <!-- نام انگلیسی -->
         <div class="form-group">
             <label for="english_name">نام انگلیسی محصول</label>
-            <input type="text" name="english_name" class="field" placeholder="نام انگلیسی محصول را وارد کنید">
+            <input type="text" name="english_name" id="english_name" class="form-control" value="{{ old('english_name') }}">
         </div>
+
+        <!-- برند -->
         <div class="form-group">
             <label for="brand">برند</label>
-            <input type="text" name="brand" class="field" placeholder="برند محصول را وارد کنید">
+            <input type="text" name="brand" id="brand" class="form-control" value="{{ old('brand') }}">
         </div>
+
+        <!-- قیمت -->
         <div class="form-group">
-            <label for="weight">وزن (گرم)</label>
-            <input type="number" name="weight" class="field" placeholder="وزن محصول">
+            <label for="price">قیمت (تومان)</label>
+            <input type="number" name="price" id="price" class="form-control" value="{{ old('price') }}" required>
         </div>
+
+        <!-- قیمت تخفیف‌خورده -->
         <div class="form-group">
-            <label for="dimensions">ابعاد (ارتفاع، عرض، طول)</label>
-            <div class="d-flex">
-                <input type="number" name="height" class="field mr-2" placeholder="ارتفاع">
-                <input type="number" name="width" class="field mr-2" placeholder="عرض">
-                <input type="number" name="length" class="field" placeholder="طول">
-            </div>
+            <label for="discount_price">قیمت تخفیف‌خورده (تومان)</label>
+            <input type="number" name="discount_price" id="discount_price" class="form-control" value="{{ old('discount_price') }}">
         </div>
-        <div class="form-group">
-            <label for="price">قیمت</label>
-            <input type="number" name="price" class="field" placeholder="قیمت محصول" required>
-        </div>
-        <div class="form-group">
-            <label for="discount_price">قیمت تخفیف خورده</label>
-            <input type="number" name="discount_price" class="field" placeholder="قیمت تخفیف خورده">
-        </div>
+
+        <!-- تاریخ انقضای تخفیف -->
         <div class="form-group">
             <label for="discount_expiry">تاریخ انقضای تخفیف</label>
-            <input type="date" name="discount_expiry" class="field">
+            <input type="date" name="discount_expiry" id="discount_expiry" class="form-control" value="{{ old('discount_expiry') }}">
         </div>
+
+        <!-- دسته‌بندی -->
         <div class="form-group">
-            <label for="categories">دسته‌بندی‌ها</label>
-            <select name="categories[]" class="field" multiple>
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+            <label for="categories">دسته‌بندی</label>
+            <select name="categories[]" id="categories" class="form-control" multiple>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ in_array($category->id, old('categories', [])) ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
                 @endforeach
             </select>
         </div>
+
+        <!-- تصویر اصلی -->
         <div class="form-group">
-            <label for="tags">برچسب‌ها (با کاما جدا کنید)</label>
-            <input type="text" name="tags" class="field" placeholder="برچسب‌ها را وارد کنید">
+            <label for="main_image">تصویر اصلی</label>
+            <input type="file" name="main_image" id="main_image" class="form-control-file" accept="image/*">
         </div>
+
+        <!-- گالری تصاویر -->
         <div class="form-group">
-            <label for="description">توضیحات</label>
-            <textarea name="description" class="field" placeholder="توضیحات محصول"></textarea>
+            <label for="gallery">گالری تصاویر</label>
+            <input type="file" name="gallery[]" id="gallery" class="form-control-file" accept="image/*" multiple>
         </div>
+
+        <!-- وزن -->
+        <div class="form-group">
+            <label for="weight">وزن (گرم)</label>
+            <input type="number" name="weight" id="weight" class="form-control" value="{{ old('weight') }}">
+        </div>
+
+        <!-- ابعاد -->
+        <div class="form-group">
+            <label for="dimensions">ابعاد (سانتی‌متر)</label>
+            <div class="row">
+                <div class="col">
+                    <input type="number" name="height" id="height" class="form-control" placeholder="ارتفاع" value="{{ old('height') }}">
+                </div>
+                <div class="col">
+                    <input type="number" name="width" id="width" class="form-control" placeholder="عرض" value="{{ old('width') }}">
+                </div>
+                <div class="col">
+                    <input type="number" name="length" id="length" class="form-control" placeholder="طول" value="{{ old('length') }}">
+                </div>
+            </div>
+        </div>
+
+        <!-- توضیحات کوتاه -->
         <div class="form-group">
             <label for="short_description">توضیحات کوتاه</label>
-            <textarea name="short_description" class="field" placeholder="توضیحات کوتاه"></textarea>
+            <textarea name="short_description" id="short_description" class="form-control" rows="3">{{ old('short_description') }}</textarea>
         </div>
+
+        <!-- توضیحات -->
         <div class="form-group">
-            <label for="stock">موجودی انبار</label>
-            <input type="number" name="stock" class="field" placeholder="تعداد موجودی" value="0" min="0">
+            <label for="description">توضیحات</label>
+            <textarea name="description" id="description" class="form-control" rows="5">{{ old('description') }}</textarea>
         </div>
-        <button type="submit" class="button">ذخیره محصول</button>
+
+        <!-- برچسب‌ها -->
+        <div class="form-group">
+            <label for="tags">برچسب‌ها (با کاما جدا کنید)</label>
+            <input type="text" name="tags" id="tags" class="form-control" value="{{ old('tags') }}">
+        </div>
+
+        <!-- تعداد موجودی -->
+        <div class="form-group">
+            <label for="stock">موجودی</label>
+            <input type="number" name="stock" id="stock" class="form-control" value="{{ old('stock') }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">ذخیره محصول</button>
     </form>
+</div>
 @endsection

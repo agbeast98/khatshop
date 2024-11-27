@@ -41,7 +41,7 @@ Route::prefix('admin')->group(function () {
 });
 
 // مسیرهای محصولات مدیریت
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('products', AdminProductController::class);
     Route::get('/admin/products/{product}', [AdminProductController::class, 'show'])->name('admin.products.show');
 

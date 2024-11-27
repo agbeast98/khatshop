@@ -10,6 +10,7 @@
             <tr>
                 <th>نام محصول</th>
                 <th>قیمت</th>
+                <th>تصویر اصلی</th>
                 <th>عملیات</th>
             </tr>
         </thead>
@@ -18,6 +19,8 @@
                 <tr>
                     <td>{{ $product->name }}</td>
                     <td>{{ number_format($product->price, 2) }} تومان</td>
+                    if($product->main_image)
+                <img src="{{ asset('storage/' . $product->main_image) }}" alt="{{ $product->name }}" style="width: 100px;">
                     <td>
                     <a href="{{ route('admin.products.show', $product->id) }}" class="button">نمایش</a>
                         <a href="{{ route('products.edit', $product) }}" class="button">ویرایش</a>
