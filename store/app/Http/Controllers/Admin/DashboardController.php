@@ -18,6 +18,6 @@ class DashboardController extends Controller
         $totalUsers = User::count();
         $latestOrders = Order::latest()->take(5)->get();
 
-        return view('admin.dashboard.index', compact('totalOrders', 'totalRevenue', 'totalProducts', 'totalUsers', 'latestOrders'));
+        return view('admin.dashboard', compact('totalOrders', 'totalRevenue', 'totalProducts', 'totalUsers', 'latestOrders'));
     }
 }

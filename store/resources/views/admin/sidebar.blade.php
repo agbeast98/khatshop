@@ -2,7 +2,7 @@
     <h3 class="text-center text-warning">منوی ادمین</h3>
     <ul class="list-unstyled">
         <li class="mb-2">
-            <a href="{{ route('products.index') }}" class="text-white text-decoration-none">
+            <a href="{{ route('admin.products.index') }}" class="text-white text-decoration-none">
                 مدیریت محصولات
             </a>
         </li>

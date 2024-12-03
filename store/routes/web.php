@@ -15,6 +15,11 @@ use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProductController as UserProductController;
 use App\Http\Controllers\User\ContactController;
 use App\Http\Controllers\User\AboutController;
+use App\Http\Controllers\Admin\ProfileController;
+
+// مسیر پروفایل ادمین
+Route::get('admin/profile', [ProfileController::class, 'show'])->name('profile')->middleware('auth');
+
 
 // مسیرهای دسته‌بندی‌ها
 Route::resource('admin/categories', CategoryController::class);
@@ -24,10 +29,13 @@ Route::prefix('admin')->group(function () {
     Route::resource('users', UserController::class);
 });
 
+
 // مسیرهای سفارشات
 Route::prefix('admin')->group(function () {
     Route::resource('orders', OrderController::class);
 });
+
+
 
 // مسیرهای تنظیمات
 Route::prefix('admin')->group(function () {
@@ -37,15 +45,18 @@ Route::prefix('admin')->group(function () {
 
 // مسیرهای داشبورد
 Route::prefix('admin')->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 });
+
 
 // مسیرهای محصولات مدیریت
 Route::prefix('admin')->name('admin.')->group(function () {
+    // مسیرهای مدیریت محصولات
     Route::resource('products', AdminProductController::class);
-    Route::get('/admin/products/{product}', [AdminProductController::class, 'show'])->name('admin.products.show');
-
+    // مسیر اختصاصی نمایش محصول
+    Route::get('products/{product}', [AdminProductController::class, 'show'])->name('products.show');
 });
+
 
 
 //user :

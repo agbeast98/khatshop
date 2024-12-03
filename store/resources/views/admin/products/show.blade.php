@@ -19,5 +19,5 @@
             <p class="card-text"><strong>دسته‌بندی‌ها:</strong> {{ implode(', ', json_decode($product->categories, true) ?? []) }}</p>
         </div>
     </div>
-    <a href="{{ route('products.index') }}" class="btn btn-primary mt-3">بازگشت به لیست محصولات</a>
+    <a href="{{ route('admin.products.index') }}" class="btn btn-primary mt-3">بازگشت به لیست محصولات</a>
 @endsection
